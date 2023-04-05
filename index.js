@@ -31,15 +31,14 @@ app.get('/api', (req, res) => {
 });
 
 app.get("/api/:date?", function (req, res) {
-  console.log(req.params.date)
-  var date = new Date(req.params.date)
+  var date = req.params.date
   const dateStringRegex = /^[0-9]+$/
   const numbersOnly = dateStringRegex.test(date)
 
   if (!numbersOnly) {
-    const unixTimestamp = Date.parse(req.params.date)
-    console.log(unixTimestamp)
+    const unixTimestamp = Date.parse(date)
     const utcDate = new Date(unixTimestamp).toUTCString()
+    console.log(unixTimestamp)
  
     unixTimestamp
     ? res.json({ "unix": unixTimestamp, "utc": utcDate })
